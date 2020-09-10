@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
 // Article Structure for multiple data type field..
@@ -33,18 +31,18 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Homepage Endpoint Hit")
 }
 
-func testPostArticles(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "test Post Endpoint Worked")
-}
+//func testPostArticles(w http.ResponseWriter, r *http.Request) {
+//	fmt.Fprintf(w, "test Post Endpoint Worked")
+//}
 
 func handleRequests() {
 
-	myRouter := mux.NewRouter().StrictSlash(true)
+	//myRouter := mux.NewRouter().StrictSlash(true)
 
-	myRouter.HandleFunc("/", homePage)
-	myRouter.HandleFunc("/articles", allArticles).Methods("GET")
-	myRouter.HandleFunc("/articles", testPostArticles).Methods("POST")
-	log.Fatal(http.ListenAndServe(":8081", myRouter))
+	http.HandleFunc("/", homePage)
+	http.HandleFunc("/articles", allArticles)
+	//myRouter.HandleFunc("/articles", testPostArticles).Methods("POST")
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
 
 func main() {
